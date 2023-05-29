@@ -193,7 +193,7 @@ const Uploader = () => {
           Picked file: {file.name}
         </Text>
       )}
-      <p><a href={Url}> {Url} </a></p>
+
     </>
   );
 };
