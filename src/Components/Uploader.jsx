@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { load, identify } from "../Modules/Tensorflow";
 import { storage, database } from "./firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getDatabase, ref as databaseRef, set, child, get, push, onValue } from "firebase/database";
+import { getDatabase, ref as databaseRef, set, child, get, push } from "firebase/database";
 import { v4 } from "uuid";
 
 import {
@@ -39,10 +39,6 @@ const Uploader = () => {
 
   const imageRef = useRef(null);
 
-  const [recordId, setRecordId] = useState(0);
-  const [data, setData] = useState({});
-
-
   // sets preview when file is uploaded
   useEffect(() => {
     let objectURL = null;
@@ -57,7 +53,6 @@ const Uploader = () => {
 
       const records = [
         {
-          id: recordId,
           file: file,
           location: "subang jaya",
           reportDate: currentDateTimeString,
@@ -68,37 +63,8 @@ const Uploader = () => {
         // Add more records as needed
       ];
 
-
       const uploadAndSaveRecord = async (record) => {
         try {
-          const database = getDatabase();
-          const potholeRef = ref(database, "pothole");
-          const onDataChange = (snapshot) => {
-            if (snapshot.exists()) {
-              const fetchedData = snapshot.val();
-              setData({ ...fetchedData });
-
-              // Find the largest ID number
-              let largestId = 0;
-              Object.keys(fetchedData).forEach((id) => {
-                if (fetchedData[id].id > largestId) {
-                  largestId = fetchedData[id].id;
-                }
-              });
-
-              // Update the recordId state with the largest ID number
-              setRecordId(largestId);
-            } else {
-              setData({});
-              setRecordId(0);
-            }
-          };
-
-          onValue(potholeRef, onDataChange);
-
-
-
-
           const { file, ...data } = record;
 
           const imageRef = ref(storage, `images/${file.name}_${v4()}`);

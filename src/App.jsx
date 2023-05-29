@@ -7,7 +7,7 @@ function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <AppShell padding="md">
-        
+        <Nav />
         <Main />
       </AppShell>
     </MantineProvider>

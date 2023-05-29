@@ -9,8 +9,8 @@ const Main = () => {
   return (
     <>
       <Stack h={"80vh"} justify="space-between">
-        <Dashboard />
-
+        <Uploader />
+        <Output />
       </Stack>
     </>
   );

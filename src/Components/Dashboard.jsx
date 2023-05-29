@@ -163,32 +163,9 @@ const Dashboard = () => {
 
 
 
-
-
   const handleDownloadPDF = (id, rowData) => {
     generatePDFData(id, rowData.imageUrl, rowData);
   };
-
-  /*   const downloadPDF = (rowData) => {
-      // Create a PDF based on the rowData and initiate download
-      const pdfData = generatePDFData(rowData);
-      const blob = new Blob([pdfData], { type: 'application/pdf' });
-      saveAs(blob, 'pothole_data.pdf');
-    }; */
-
-
-
-
-    const getLargestId = () => {
-      const levels = Object.values(data).map((item) => item.id);
-      if (levels.length === 0) {
-        return null;
-      }
-      const largestLevel = Math.max(...levels);
-      return largestLevel;
-    };
-
-
 
 
 
@@ -221,7 +198,7 @@ const Dashboard = () => {
                 <span>Report Date</span>
                 <div>
                   <button
-                    onClick={() => sortData("date")}
+                    onClick={() => sortData("reportDate")}
                     style={{ background: "none", border: "none", cursor: "pointer" }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -252,9 +229,7 @@ const Dashboard = () => {
             <th style={{ textAlign: "center", paddingRight: "40px", paddingLeft: "40px" }}>Repair Completion Date</th>
             <th style={{ textAlign: "center", paddingRight: "40px", paddingLeft: "40px" }}>Action</th>
           </tr>
-          <tr>
-            Largest ID: {getLargestId()}
-          </tr>
+
         </thead>
         <tbody>
           {Object.keys(data).map((id, index) => {
